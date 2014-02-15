@@ -1,0 +1,6 @@
+---
+- name: Bash | Copy Bash alias file for root
+  copy: src="{{ templates_dir }}/environment/bash_aliases" dest=~/.bash_aliases
+
+- name: Bash | Copy Bash alias file for vagrant user
+  copy: src="{{ templates_dir }}/environment/bash_aliases" dest=/home/vagrant//.bash_aliases

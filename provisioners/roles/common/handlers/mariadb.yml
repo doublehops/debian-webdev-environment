@@ -1,0 +1,9 @@
+---
+  - name: mysql-start
+    service: name=php5-fpm state=started
+  
+  - name: mysql-restart
+    service: name=php5-fpm state=restarted
+  
+  - name: mysql-stop
+    service: name=php5-fpm state=stopped

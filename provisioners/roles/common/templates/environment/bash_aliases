@@ -1,0 +1,2 @@
+export EDITOR=/usr/bin/vim
+export PS1='\[\033[0;36m\]\u@\h \W\$\[\e[0m\] '

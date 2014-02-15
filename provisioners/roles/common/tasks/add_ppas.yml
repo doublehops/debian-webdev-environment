@@ -1,0 +1,23 @@
+---
+  ######  Dotdeb.org  ######
+
+  - name: Add dotdeb main
+    apt_repository: repo='deb http://packages.dotdeb.org wheezy all' state=present
+  - name: Add dotdeb main src
+    apt_repository: repo='deb-src http://packages.dotdeb.org wheezy all' state=present
+  - name: Add dotdeb php55
+    apt_repository: repo='deb http://packages.dotdeb.org wheezy-php55 all' state=present
+  - name: Add dotdeb php55 src
+    apt_repository: repo='deb-src http://packages.dotdeb.org wheezy-php55 all' state=present
+
+  - name: APT | Install DotDeb key
+    apt_key: url='http://www.dotdeb.org/dotdeb.gpg' state=present
+    tags: dotdeb
+
+  ######  MariaDB  ######
+
+  - name: MariaDB | Add apt repository
+    action: apt_repository repo='deb http://mirror.aarnet.edu.au/pub/MariaDB/repo/10.0/debian wheezy main' state=present
+
+  - name: Add Mariadb key
+    action: apt_key id=1BB943DB url="http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xCBCB082A1BB943DB" state=present

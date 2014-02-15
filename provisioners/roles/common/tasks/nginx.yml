@@ -1,0 +1,32 @@
+---
+- name: Nginx | Install Nginx
+  apt:
+    pkg=nginx
+    state=latest
+
+- name: Nginx | Check vhosts path exists
+  file: dest=/etc/nginx/sites-available state=directory
+
+- name: Nginx | Copy vhost files
+  copy: src="{{ templates_dir }}/nginx/sites-available/webserver1" dest=/etc/nginx/sites-available owner=root group=root  mode=600
+  notify: 
+  - nginx-restart
+
+- name: Nginx | Create vhost symlinks
+  file: path=/etc/nginx/sites-enabled/webserver state=link src=/etc/nginx/sites-available/webserver1
+  notify: 
+  - nginx-restart
+
+- name: Nginx | Remove default vhost
+  file: dest=/etc/nginx/sites-available/default state=absent
+- name: Nginx | Remove default vhost enabled symlink
+  file: dest=/etc/nginx/sites-enabled/default state=absent
+
+- name: Nginx | Ensure directory exists
+  file: dest=/var/www state=directory
+
+- name: Nginx | Ensure Nginx is running
+  service:
+    name=nginx
+    state=started
+

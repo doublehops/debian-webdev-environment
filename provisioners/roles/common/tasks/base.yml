@@ -1,0 +1,12 @@
+---
+  - name: Update apt cache
+    apt: update_cache=yes cache_valid_time=36000
+    sudo: yes
+
+  - name: Install required system packages
+    apt: pkg={{ item }} state=installed
+    with_items:
+      - vim
+      - htop
+      - python-pycurl
+      - python-software-properties

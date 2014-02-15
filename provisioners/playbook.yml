@@ -1,0 +1,23 @@
+---
+- hosts: webservers
+  user: vagrant
+  sudo: yes
+
+  vars_files:
+    - roles/common/vars/vars.yml
+
+  vars:
+    templates_dir: "roles/common/templates"
+
+  tasks:
+    - include: roles/common/tasks/base.yml
+    - include: roles/common/tasks/environment.yml
+    - include: roles/common/tasks/add_ppas.yml
+    - include: roles/common/tasks/php.yml
+    - include: roles/common/tasks/nginx.yml
+    - include: roles/common/tasks/mariadb.yml
+
+  handlers:
+    - include: roles/common/handlers/nginx.yml
+    - include: roles/common/handlers/php.yml
+    - include: roles/common/handlers/mariadb.yml

@@ -1,0 +1,24 @@
+---
+  - name: MariaDB | Install MariaDB
+    apt: pkg={{ item }} state=installed force=yes
+    with_items:
+      - mariadb-server
+      - mariadb-client
+      - python-mysql.connector
+      - python-mysqldb
+
+  - name: MariaDB | Update dev password for all dev accounts
+    mysql_user: name=dev host={{ item }} password={{ mariadb_dev_password }} priv=*.*:ALL,GRANT
+    with_items:
+      - "{{ ansible_hostname }}"
+      - 127.0.0.1
+      - ::1
+      - localhost
+
+#  - name: MariaDB | Update root password for all root accounts
+#    mysql_user: name=root host={{ item }} password={{ mariadb_root_password }} priv=*.*:ALL,GRANT
+#    with_items:
+#      - "{{ ansible_hostname }}"
+#      - 127.0.0.1
+#      - ::1
+#      - localhost

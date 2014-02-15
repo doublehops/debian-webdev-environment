@@ -1,0 +1,11 @@
+---
+  - name: Install PHP5
+    apt: pkg={{ item }} state=latest force=yes
+    with_items:
+      - php5-fpm
+      - php5-mysql
+
+  - name: PHP | Copy PHP config file
+    copy: src="{{ templates_dir }}/php/php.ini" dest=/etc/php5/fpm/php.ini owner=root group=root force=yes
+    notify: 
+    - php5-fpm-restart
