@@ -4,8 +4,3 @@
 
 - name: Bash | Copy Bash alias file for vagrant user
   copy: src="{{ templates_dir }}/environment/bash_aliases" dest=/home/vagrant//.bash_aliases
-
-- name: PHP | PHPDev | Install composer
-  shell:
-    curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f /home/vagrant/composer.phar /usr/local/bin/composer
-    creates=/usr/bin/composer

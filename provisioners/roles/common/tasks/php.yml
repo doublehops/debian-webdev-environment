@@ -4,8 +4,15 @@
     with_items:
       - php5-fpm
       - php5-mysql
+      - php5-cli
+      - php5-curl
 
   - name: PHP | Copy PHP config file
     copy: src="{{ templates_dir }}/php/php.ini" dest=/etc/php5/fpm/php.ini owner=root group=root force=yes
     notify: 
     - php5-fpm-restart
+
+  - name: PHP | PHPDev | Install composer
+    shell:
+      curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f /home/vagrant/composer.phar /usr/local/bin/composer
+      creates=/usr/local/bin/composer
