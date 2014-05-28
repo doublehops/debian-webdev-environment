@@ -16,3 +16,11 @@
     shell:
       curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f /home/vagrant/composer.phar /usr/local/bin/composer
       creates=/usr/local/bin/composer
+
+  - name: PHP | Ensure listen.group is set.
+    lineinfile: dest=/etc/php5/fpm/pool.d/www.conf regexp='listen.group = www-data' line='listen.group = www-data' state=present
+    notify: php5-fpm-restart
+
+  - name: PHP | Ensure listen.owner is set.
+    lineinfile: dest=/etc/php5/fpm/pool.d/www.conf regexp='listen.owner = www-data' line='listen.owner = www-data' state=present
+    notify: php5-fpm-restart
